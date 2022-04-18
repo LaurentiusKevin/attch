@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, HttpStatus, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { UsersService } from "./users.service";
 import { Users } from "./users.entity";
 import { ChangePasswordDto, CreateUserDto, DeleteUserDto, UpdateUserDto } from "./users.dto";
+import { JwtAuthGuard } from "../auth/jwt.guard";
 
 @ApiBearerAuth()
 @ApiTags('users')
@@ -12,6 +13,7 @@ export class UsersController {
         private userService: UsersService
     ) {}
 
+    @UseGuards(JwtAuthGuard)
     @Get()
     @ApiOperation({summary: 'Get All User'})
     @ApiResponse({status: 403, description: 'Forbidden.'})
