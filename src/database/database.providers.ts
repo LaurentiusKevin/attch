@@ -7,11 +7,11 @@ export const databaseProviders = [
         useFactory: async () => {
             const sequelize = new Sequelize({
                 dialect: 'postgres',
-                host: 'otto.db.elephantsql.com',
-                port: 5432,
-                username: 'txyjxmge',
-                password: 'KKckXyUP1s0PTKJQXsbERDQSHv5QgKxn',
-                database: 'txyjxmge',
+                host: process.env.DB_HOST,
+                port: parseInt(process.env.DB_PORT),
+                username: process.env.DB_USERNAME,
+                password: process.env.DB_PASSWORD,
+                database: process.env.DB_DATABASE,
             });
             sequelize.addModels([
                 Users
